@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Contacts</title>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.2.0/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.0/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen" />
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.1/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
+</head>
+<body>
+<h2 th:text="${title}">DEFAULT HEADER</h2>
+
+<form action="#" th:action="@{/todo}" method="post">
+    <input type="text" name="label" />
+    <input type="submit" />
+</form>
+
+<ul th:each="atodo : ${todos}">
+    <li>
+        <form action="#" th:action="@{/todo/complete}" th:object="${todo}" method="post">
+            <input name="id" type="checkbox" th:value="${atodo.id}" th:checked="${atodo.completed}" onclick="this.form.submit();"/>
+        </form>
+        <span th:text="${atodo.label}">Label</span>|
+        <span th:text="${atodo.dateCreated}">Date Created</span>|
+        <span th:text="${atodo.dateCompleted}">Date Completed</span>
+
+    </li>
+</ul>
+
+</body>
+</html>

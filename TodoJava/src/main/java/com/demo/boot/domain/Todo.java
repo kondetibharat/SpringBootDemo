@@ -42,6 +42,26 @@ public class Todo {
         return dateCompleted;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public void setDateCompleted(Date dateCompleted) {
+        this.dateCompleted = dateCompleted;
+    }
+
     @Override
     public String toString() {
         return String.format(
