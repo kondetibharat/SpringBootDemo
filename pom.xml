@@ -12,6 +12,7 @@
         <module>SpringProfiles</module>
         <module>SpringConditionals</module>
         <module>SpringBootSimpleJava</module>
+        <module>TodoJava</module>
     </modules>
 
 
