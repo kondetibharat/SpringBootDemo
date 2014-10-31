@@ -2,6 +2,9 @@ package com.demo.boot.controller;
 
 import com.demo.boot.domain.Todo;
 import com.demo.boot.repository.TodoRepository;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +34,23 @@ public class TodoController {
     @RequestMapping(method = RequestMethod.GET)
     String getAllTodo(Map<String,Object> model) {
         List<Todo> todos = Lists.newArrayList(repository.findAll());
-        model.put("todos", todos);
+
+        Collection<Todo> openTodos = Collections2.filter(todos, new Predicate<Todo>() {
+            @Override
+            public boolean apply(Todo todo) {
+                return (false == todo.isCompleted());
+            }
+        });
+
+        Collection<Todo> completedTodos = Collections2.filter(todos, new Predicate<Todo>() {
+            @Override
+            public boolean apply(Todo todo) {
+                return (true == todo.isCompleted());
+            }
+        });
+
+        model.put("openTodos", openTodos);
+        model.put("completedTodos", completedTodos);
         model.put("title", title);
 
         return "todo";
